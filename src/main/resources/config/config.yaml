@@ -1,0 +1,19 @@
+# must be an even number
+boardRowSize: 8
+# must be an even number
+boardColumnSize: 8
+increaseFieldPrice: 1000
+initialAvailableMoney: 30000
+
+debug:
+  visibleAllBoard: false
+
+generatingTerrains:
+  - terrain: WATER
+    percent: 20
+  - terrain: MOUNTAIN
+    percent: 20
+  - terrain: FOREST
+    percent: 10
+  - terrain: PLAIN
+    percent: 50

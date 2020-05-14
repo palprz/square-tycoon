@@ -1,0 +1,145 @@
+label {
+    font-size: 12px;
+}
+
+#button {
+    cursor:pointer;
+}
+
+.not-visible {
+    background: black !important;
+}
+
+.dimmed {
+    opacity: 0.5;
+}
+
+.field {
+    width: 100px;
+    height: 100px;
+    background-size: 125px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.field:hover {
+    border: 3px solid white;
+    cursor: pointer;
+}
+
+.field-price {
+    display: none;
+}
+
+.field:hover .field-price {
+    display: block;
+}
+
+.field-title {
+    background-color: white;
+    color: black;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.general-border {
+    border: 3px solid black;
+}
+
+.board-container {
+    float: left;
+    display: grid;
+}
+
+.choose-container {
+    float: left;
+    margin: 10px 20px;
+}
+
+.choose-container button,
+.choose-container label {
+    clear: left;
+    float: left;
+}
+
+.choose-container button {
+    width: 70px;
+    height: 30px;
+}
+
+.choose-container button:hover {
+    cursor: pointer;
+}
+
+.button-container {
+    float: left;
+    margin: 20px;
+}
+
+.additional-btn {
+    float: left;
+    clear: left;
+    width: 200px;
+    height: 50px;
+    margin: 10px 25px;
+}
+
+.money-container {
+    float: left;
+    margin: 20px;
+}
+
+.money-label-div:first-child {
+    border-bottom: 2px solid black;
+}
+
+.money-label-div {
+    clear: left;
+    float: left;
+    font-size: 30px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.yellow{
+    color: gold;
+}
+
+.water {
+    background-image: url(img/water.png);
+}
+
+.plain {
+    background-image: url(img/plain.png);
+}
+
+.mountain {
+    background-image: url(img/mountain.png);
+}
+
+.forest {
+    background-image: url(img/forest.png);
+}
+
+.connected-north-field {
+    border-top: 3px solid green !important;
+}
+
+.connected-east-field {
+    border-right: 3px solid green !important;
+}
+
+.connected-south-field {
+    border-bottom: 3px solid green !important;
+}
+
+.connected-west-field {
+    border-left: 3px solid green !important;
+}
+
