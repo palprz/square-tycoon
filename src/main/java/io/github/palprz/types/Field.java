@@ -31,8 +31,7 @@ public class Field {
     @Override
     public String toString() {
         return new StringJoiner(", ", Field.class.getSimpleName() + "[", "]")
-                // Avoid spam logs with elements
-                .add("element=" + element.getText())
+                .add("element=" + element)
                 .add("fieldMetadata=" + fieldMetadata)
                 .toString();
     }

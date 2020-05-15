@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class Storage {
 
@@ -54,4 +55,12 @@ public class Storage {
         this.availableMoney = availableMoney;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Storage.class.getSimpleName() + "[", "]")
+                .add("config=" + config)
+                .add("board=" + board)
+                .add("availableMoney=" + availableMoney)
+                .toString();
+    }
 }

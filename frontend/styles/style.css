@@ -2,10 +2,6 @@ label {
     font-size: 12px;
 }
 
-#button {
-    cursor:pointer;
-}
-
 .not-visible {
     background: black !important;
 }
@@ -82,6 +78,11 @@ label {
     width: 200px;
     height: 50px;
     margin: 10px 25px;
+    cursor:pointer;
+}
+
+.additional-btn:hover {
+    color: black;
 }
 
 .money-container {
