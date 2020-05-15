@@ -44,8 +44,7 @@ public class MoneyLogic extends TimerTask {
             // If it's set
             if (production != ProductionEnum.NONE) {
                 // field can produce products when has got all necessary products and is connected to the market
-                if (fieldMeta.isHasRequireProducts()) {
-//                    if (fieldMeta.isHasRequireProducts() && fieldMeta.isMarketConnected()) {
+                if (fieldMeta.isHasRequireProducts() && fieldMeta.isMarketConnected()) {
                     income = income + production.getIncome();
                 }
                 expense = expense + production.getCost();

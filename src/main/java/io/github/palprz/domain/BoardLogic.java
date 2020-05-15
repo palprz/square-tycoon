@@ -2,10 +2,7 @@ package io.github.palprz.domain;
 
 import com.vaadin.flow.component.html.Div;
 import io.github.palprz.storage.Storage;
-import io.github.palprz.types.DirectionEnum;
-import io.github.palprz.types.Field;
-import io.github.palprz.types.FieldMetadata;
-import io.github.palprz.types.Position;
+import io.github.palprz.types.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,10 +88,35 @@ public class BoardLogic {
         int middleRow = boardRowSize / 2;
         int middleColumn = boardColumnSize / 2;
         // shift once again by 1 comparing to the middle - middle is 2x2 and next area is 4x4 start counted from the middle should be 1x1
-        if ((middleRow - 1 == row || middleRow + 2 == row) && (middleColumn - 1 == column || middleColumn + 2 == column)) {
+        if ((middleRow - 1 == row
+                || middleRow == row
+                || middleRow + 1 == row
+                || middleRow + 2 == row)
+
+                && (middleColumn - 1 == column
+                || middleColumn == column
+                || middleColumn + 1 == column
+                || middleColumn + 2 == column)) {
             return true;
         }
         return false;
     }
 
+    public boolean isMarketNextField(Field field) {
+        Map<DirectionEnum, Field> fieldsAround = this.getFieldsAroundByDirection(
+                field.getFieldMetadata().getRow(),
+                field.getFieldMetadata().getColumn());
+        for (Map.Entry<DirectionEnum, Field> entry : fieldsAround.entrySet()) {
+            Field nextField = entry.getValue();
+            if (nextField == null) {
+                // edge of the board
+                continue;
+            }
+
+            if (nextField.getFieldMetadata().getProduction() == ProductionEnum.MARKET) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

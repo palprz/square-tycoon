@@ -42,9 +42,9 @@ public class FieldLogic {
                 fieldMeta.getRow(),
                 fieldMeta.getColumn());
 
-        this.checkFieldConnections(field, fieldsAround);
+        this.checkFieldConnections(field, fieldsAround, oldProduction);
         /*
-         * if has got require products then it's possible that the rest around fields started producing their own
+         * If has got require products then it's possible that the rest around fields started producing their own
          * products so run chain to check it
          */
         LOG.debug("Init running chain for: {}", field);
@@ -53,9 +53,8 @@ public class FieldLogic {
         NotificationInfo.show("Set production of " + production.getName());
     }
 
-    // TODO what if we are removing market? change value of connected market to be false for connected fields
-    private void checkFieldConnections(Field field, Map<DirectionEnum, Field> fieldsAround) {
-        ProductionEnum production = field.getFieldMetadata().getProduction();
+    private void checkFieldConnections(Field field, Map<DirectionEnum, Field> fieldsAround, ProductionEnum oldProduction) {
+        ProductionEnum newProduction = field.getFieldMetadata().getProduction();
         for (Map.Entry<DirectionEnum, Field> entry : fieldsAround.entrySet()) {
             if (entry.getValue() == null) {
                 continue;
@@ -65,9 +64,16 @@ public class FieldLogic {
             Position nextFieldPosition = new Position(nextFieldMeta.getRow(), nextFieldMeta.getColumn());
             Field nextField = Storage.get().getBoard().get(nextFieldPosition);
 
-            if (production == ProductionEnum.NONE) {
+            if (newProduction == ProductionEnum.NONE) {
                 // when we will cancel the production
                 this.disconnectFieldsByCSS(field, nextField, entry.getKey());
+                LOG.info("Set to nothing - old production: {}", oldProduction);
+                if (oldProduction == ProductionEnum.MARKET) {
+                    // check if after removing market there is still a market connected to the next field
+                    boolean marketNextField = boardLogic.isMarketNextField(nextField);
+                    LOG.info("Has next field got market? '{}' for field {}", marketNextField, nextField);
+                    nextField.getFieldMetadata().setMarketConnected(marketNextField);
+                }
                 continue;
             }
 
@@ -77,7 +83,7 @@ public class FieldLogic {
                 continue;
             }
 
-            if (production == ProductionEnum.MARKET) {
+            if (newProduction == ProductionEnum.MARKET) {
                 // market to field
                 if (nextFieldProduction.getIncome() != 0 && nextFieldProduction != ProductionEnum.MARKET) {
                     this.connectFieldsByCSS(field, nextField, entry.getKey());
@@ -87,7 +93,7 @@ public class FieldLogic {
             }
 
             // field to market
-            if (production.getIncome() != 0 && nextFieldProduction == ProductionEnum.MARKET) {
+            if (newProduction.getIncome() != 0 && nextFieldProduction == ProductionEnum.MARKET) {
                 this.connectFieldsByCSS(field, nextField, entry.getKey());
                 field.getFieldMetadata().setMarketConnected(true);
                 continue;
@@ -98,8 +104,8 @@ public class FieldLogic {
             // is existing field providing any require product for a new field?
             // and
             // is existing field requiring any providing product from a new field?
-            if (!(Collections.disjoint(production.getRequireProducts(), nextFieldProduction.getProvideProducts())
-                    && Collections.disjoint(production.getProvideProducts(), nextFieldProduction.getRequireProducts()))) {
+            if (!(Collections.disjoint(newProduction.getRequireProducts(), nextFieldProduction.getProvideProducts())
+                    && Collections.disjoint(newProduction.getProvideProducts(), nextFieldProduction.getRequireProducts()))) {
                 this.connectFieldsByCSS(field, nextField, entry.getKey());
             }
         }
@@ -114,6 +120,7 @@ public class FieldLogic {
         for (Map.Entry<DirectionEnum, Field> entry : fieldsAround.entrySet()) {
             Field nextField = entry.getValue();
             if (nextField == null) {
+                // edge of the board
                 continue;
             }
 

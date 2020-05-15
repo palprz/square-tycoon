@@ -91,7 +91,8 @@ public class MainRoute extends FlexLayout implements HasDynamicTitle {
 
         Button loadDemo = new Button("Load demo");
         loadDemo.addClassName("additional-btn");
-//        regenerateBoard.addClickListener(e -> loadDemo());
+        loadDemo.setDisableOnClick(true);
+//        loadDemo.addClickListener(e -> loadDemo());
         buttonsContainer.add(regenerateBoard);
         buttonsContainer.add(loadDemo);
 
