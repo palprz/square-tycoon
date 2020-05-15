@@ -6,7 +6,6 @@ import io.github.palprz.builders.BoardGenerator;
 import io.github.palprz.builders.DOMBuilder;
 import io.github.palprz.storage.config.Config;
 import io.github.palprz.storage.Storage;
-import io.github.palprz.storage.config.Production;
 import io.github.palprz.types.*;
 import io.github.palprz.domain.BoardLogic;
 import org.slf4j.Logger;
@@ -34,10 +33,6 @@ public class BoardView {
     public Div init() {
         Storage storage = Storage.get();
         Config config = storage.getConfig();
-
-        for (Production production : config.getProductions()) {
-            LOG.debug("Config product: {}", production.toString());
-        }
 
         Div boardContainer = new Div();
         boardContainer.addClassName("board-container");
