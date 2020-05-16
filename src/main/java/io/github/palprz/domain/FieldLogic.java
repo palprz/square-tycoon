@@ -83,11 +83,11 @@ public class FieldLogic {
             if (newProduction == ProductionEnum.NONE) {
                 // when we will cancel the production
                 this.disconnectFieldsByCSS(field, nextField, entry.getKey());
-                LOG.info("Set to nothing - old production: {}", oldProduction);
+                LOG.debug("Set to nothing - old production: {}", oldProduction);
                 if (oldProduction == ProductionEnum.MARKET) {
                     // check if after removing market there is still a market connected to the next field
                     boolean marketNextField = boardLogic.isMarketNextField(nextField);
-                    LOG.info("Has next field got market? '{}' for field {}", marketNextField, nextField);
+                    LOG.debug("Has next field got market? '{}' for field {}", marketNextField, nextField);
                     nextField.getFieldMetadata().setMarketConnected(marketNextField);
                 }
                 continue;
