@@ -40,7 +40,7 @@ public class MainRoute extends FlexLayout implements HasDynamicTitle{
     }
 
     // Just for debugging to see when the page has been generated
-    private String title = "";
+    private String title = "Square Tycoon";
 
     @Override
     public String getPageTitle() {
@@ -79,8 +79,8 @@ public class MainRoute extends FlexLayout implements HasDynamicTitle{
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         // Just for debugging to see when the page has been generated
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        title = formatter.format(new Date());
+//        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+//        title = formatter.format(new Date());
 
         Div boardContainer = boardView.init();
         add(boardContainer);
