@@ -48,12 +48,12 @@ public class MoneyLogic extends TimerTask {
                     income = income + production.getIncome();
                 }
                 expense = expense + production.getCost();
-                availableMoney = availableMoney + production.getIncome() - production.getCost();
             }
         }
 
         // Quick math
         profit = income - expense;
+        availableMoney = availableMoney + profit;
 
         ui.access(() -> {
             uiContainer.getCurrent().setText("Money: $" + availableMoney);

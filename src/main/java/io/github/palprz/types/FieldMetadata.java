@@ -109,9 +109,10 @@ public class FieldMetadata {
                 .add("production=" + production)
                 .add("visible=" + visible)
                 .add("dimmed=" + dimmed)
+                .add("fieldPrice=" + fieldPrice)
                 .add("marketConnected=" + marketConnected)
                 .add("hasRequireProducts=" + hasRequireProducts)
-                .add("fieldPrice=" + fieldPrice)
+                .add("providedProducts=" + providedProducts)
                 .toString();
     }
 }

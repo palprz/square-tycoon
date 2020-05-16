@@ -61,9 +61,15 @@ label {
 .choose-container button {
     width: 70px;
     height: 30px;
+    color: dodgerblue;
+    background: #F5F5F5;
+    border: 0;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .choose-container button:hover {
+    color: black;
     cursor: pointer;
 }
 
