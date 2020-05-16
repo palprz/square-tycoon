@@ -12,7 +12,14 @@ public class BoardLogic {
 
     private static final Logger LOG = LoggerFactory.getLogger(BoardLogic.class);
 
-    // cross 3x3 and in the middle is the field
+    /**
+     * Get map with directions and fields in the cross (3x3) of the fields where provided position is in the middle of
+     * that cross.
+     *
+     * @param r Row of the position
+     * @param c Column of the position
+     * @return map with directions and fields with 4 keys
+     */
     public Map<DirectionEnum, Field> getFieldsAroundByDirection(int r, int c) {
         Map<Position, Field> map = Storage.get().getBoard();
 
@@ -26,6 +33,15 @@ public class BoardLogic {
     }
 
     // square 3x3 and in the middle is the field
+
+    /**
+     * Get map with directions and fields in around square (3x3) of the fields where provided position is in the middle
+     * of that square.
+     *
+     * @param r Row of the position
+     * @param c Column of the position
+     * @return map with directions and fields with 8 keys
+     */
     public Map<Position, Field> getFieldsAround(int r, int c) {
         Map<Position, Field> map = Storage.get().getBoard();
 
@@ -50,7 +66,17 @@ public class BoardLogic {
         return fieldsAround;
     }
 
-    public void defineNotAvailableFields(int boardRowSize, int boardColumnSize, int row, int column, Div domElement, FieldMetadata fieldMetadata) {
+    /**
+     * Define if provided field should be availble to set production for end-user
+     *
+     * @param boardRowSize    Configured rows number of the board
+     * @param boardColumnSize Configured columns number of the board
+     * @param domElement      Div element to be updated by CSS
+     * @param fieldMetadata   Contains current position and price of the field. Can be updated.
+     */
+    public void defineNotAvailableFields(int boardRowSize, int boardColumnSize, Div domElement, FieldMetadata fieldMetadata) {
+        int row = fieldMetadata.getRow();
+        int column = fieldMetadata.getColumn();
         if (this.isPositionInMiddleBoard(boardRowSize, boardColumnSize, row, column)) {
             fieldMetadata.setVisible(true);
             fieldMetadata.setDimmed(false);
@@ -74,6 +100,15 @@ public class BoardLogic {
         }
     }
 
+    /**
+     * Check if provided position is in the middle of the board.
+     *
+     * @param boardRowSize    Configured rows number of the board.
+     * @param boardColumnSize Configured columns number of the board.
+     * @param row             Row of the position to be check
+     * @param column          Column of the position to be check
+     * @return <code>true</code> if it's in the middle of the board
+     */
     private boolean isPositionInMiddleBoard(int boardRowSize, int boardColumnSize, int row, int column) {
         int middleRow = boardRowSize / 2;
         int middleColumn = boardColumnSize / 2;
@@ -84,6 +119,15 @@ public class BoardLogic {
         return false;
     }
 
+    /**
+     * Check if provided position is next (1 field) to the middle of the board.
+     *
+     * @param boardRowSize    Configured rows number of the board.
+     * @param boardColumnSize Configured columns number of the board.
+     * @param row             Row of the position to be check
+     * @param column          Column of the position to be check
+     * @return <code>true</code> when it's next to the middle of the board
+     */
     private boolean isPositionNextMiddleBoard(int boardRowSize, int boardColumnSize, int row, int column) {
         int middleRow = boardRowSize / 2;
         int middleColumn = boardColumnSize / 2;
@@ -102,6 +146,12 @@ public class BoardLogic {
         return false;
     }
 
+    /**
+     * Check if provided field had got market next to it.
+     *
+     * @param field Field to be check
+     * @return <code>true</> when field contains minimum 1 market next to that field
+     */
     public boolean isMarketNextField(Field field) {
         Map<DirectionEnum, Field> fieldsAround = this.getFieldsAroundByDirection(
                 field.getFieldMetadata().getRow(),

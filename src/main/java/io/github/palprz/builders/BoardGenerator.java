@@ -14,6 +14,14 @@ public class BoardGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(BoardGenerator.class);
 
+    /**
+     * Basic FieldMetadata populated at the beginning of creating board.
+     *
+     * @param row     The current row of the position.
+     * @param column  The current column of the position.
+     * @param terrain Terrain type of the field.
+     * @return FieldMetadata
+     */
     public FieldMetadata createBasicFieldMetadata(Integer row, Integer column, TerrainEnum terrain) {
         FieldMetadata fieldMetadata = new FieldMetadata();
         fieldMetadata.setColumn(column);
@@ -29,6 +37,11 @@ public class BoardGenerator {
         return fieldMetadata;
     }
 
+    /**
+     * Generate random terrain based on provided configuration (in percent).
+     *
+     * @return Terrain type of the field
+     */
     public TerrainEnum getRandomTerrain() {
         List<GeneratingTerrain> generatingTerrains = Storage.get().getConfig().getGeneratingTerrains();
         LOG.debug("Generating fields based on ratios: {}", generatingTerrains);
@@ -48,6 +61,16 @@ public class BoardGenerator {
         return TerrainEnum.UNKNOWN;
     }
 
+    /**
+     * Generate buy price of the field based on the current row, column and configuration for increment increasing
+     * price.
+     *
+     * @param boardRowSize    The configurated number of rows for the board
+     * @param boardColumnSize The configurated number of columns for the board
+     * @param row             Current row of the field
+     * @param column          Current column of the field
+     * @return price of the field
+     */
     public int generateFieldPrice(int boardRowSize, int boardColumnSize, int row, int column) {
         LOG.debug("Generate field price: {}, {}, {}, {}", boardRowSize, boardColumnSize, row, column);
         int increasePrice = Storage.get().getConfig().getIncreaseFieldPrice();
@@ -68,6 +91,13 @@ public class BoardGenerator {
         }
     }
 
+    /**
+     * Check and return number of fields from the middle part of the board.
+     *
+     * @param boardSize configurated size of the board (column/row)
+     * @param position  current position (column/row)
+     * @return number of fields to the middle part of the board
+     */
     private int defineDistanceFromMiddleBoard(int boardSize, int position) {
         if (position > (boardSize / 2)) {
             // remove the first half of the board and pretend that is at the beginning of the board

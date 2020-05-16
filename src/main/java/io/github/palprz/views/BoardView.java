@@ -48,7 +48,7 @@ public class BoardView {
                 TerrainEnum terrain = boardGenerator.getRandomTerrain();
                 Div domElement = domBuilder.createVisibleFieldElement(board, position, terrain);
                 FieldMetadata fieldMetadata = boardGenerator.createBasicFieldMetadata(row, column, terrain);
-                boardLogic.defineNotAvailableFields(boardRowSize, boardColumnSize, row, column, domElement, fieldMetadata);
+                boardLogic.defineNotAvailableFields(boardRowSize, boardColumnSize, domElement, fieldMetadata);
 
                 Field field = new Field();
                 field.setElement(domElement);

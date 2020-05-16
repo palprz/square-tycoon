@@ -6,7 +6,13 @@ import java.util.StringJoiner;
 
 public class Field {
 
+    /**
+     * Div (UI) element display on the board.
+     */
     private Div element;
+    /**
+     * Contains all information and behaviour related to the field.
+     */
     private FieldMetadata fieldMetadata;
 
     public Field() {

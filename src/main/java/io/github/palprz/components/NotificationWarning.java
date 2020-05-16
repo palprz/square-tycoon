@@ -5,6 +5,11 @@ import com.vaadin.flow.component.notification.Notification;
 
 public class NotificationWarning {
 
+    /**
+     * Display warning (red label) notification for 5 seconds.
+     *
+     * @param text Text to be display on the notification
+     */
     public static void show(String text) {
         Div content = new Div();
         content.setText(text);

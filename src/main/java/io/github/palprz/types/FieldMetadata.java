@@ -6,15 +6,45 @@ import java.util.StringJoiner;
 
 public class FieldMetadata {
 
+    /**
+     * Row of the position of the field.
+     */
     private int row;
+    /**
+     * Column of the position of the field.
+     */
     private int column;
+    /**
+     * Terrain type to define background of the UI field and possible productions.
+     */
     private TerrainEnum type = TerrainEnum.UNKNOWN;
+    /**
+     * Current set production of the field.
+     */
     private ProductionEnum production = ProductionEnum.NONE;
+    /**
+     * Define if this field is visible for end-user. and not available to buy it
+     */
     private boolean visible = false;
+    /**
+     * Define if this field is available to buy.
+     */
     private boolean dimmed = true;
+    /**
+     * The cost of the field
+     */
     private int fieldPrice;
+    /**
+     * Define if the field is connected with any market next to this field.
+     */
     private boolean marketConnected;
+    /**
+     * Define if all require products have been provided by next fields' productions.
+     */
     private boolean hasRequireProducts;
+    /**
+     * List with already provided products by next fields' productions.
+     */
     private List<ProductEnum> providedProducts = new ArrayList<>();
 
     public FieldMetadata() {

@@ -25,6 +25,14 @@ public class DOMBuilder {
 
     private DialogBuilder dialogBuilder = new DialogBuilder();
 
+    /**
+     * Create a basic Div at the beginning of init board.
+     *
+     * @param board    Map with positions and fields
+     * @param position Current position to populate by Div
+     * @param terrain  Terrain type to define the background for Div
+     * @return populated Div
+     */
     public Div createVisibleFieldElement(Map<Position, Field> board, Position position, TerrainEnum terrain) {
         Div div = new Div();
         div.addClassNames("general-border", "field", terrain.getName());
@@ -40,6 +48,12 @@ public class DOMBuilder {
 
     class DialogBuilder {
 
+        /**
+         * Create dialog based on the FieldMetadata
+         *
+         * @param board    Map with positions and fields
+         * @param position Current position of the field which will be connected with dialog
+         */
         private void createDialog(Map<Position, Field> board, Position position) {
             Field field = board.get(position);
 
@@ -58,6 +72,11 @@ public class DOMBuilder {
             this.createProductionDialog(field);
         }
 
+        /**
+         * Create buy dialog for field which is able to be bought by end-user
+         *
+         * @param field Field which will handle created dialog
+         */
         private void createBuyDialog(Field field) {
             Dialog dialog = new Dialog();
             Div dialogContainer = new Div();
@@ -81,6 +100,11 @@ public class DOMBuilder {
             dialog.open();
         }
 
+        /**
+         * Create production dialog for field which is able to be set production by end-user
+         *
+         * @param field Field which will handle created dialog
+         */
         private void createProductionDialog(Field field) {
             TerrainEnum terrain = field.getFieldMetadata().getType();
 
@@ -112,6 +136,12 @@ public class DOMBuilder {
             this.createProductionOptionButtons(field, productions);
         }
 
+        /**
+         * Populate dialog with production options which end-user will be able to choose.
+         *
+         * @param field       Field which will handle created dialog
+         * @param productions List of productions to populate by dialog
+         */
         private void createProductionOptionButtons(Field field, List<ProductionEnum> productions) {
             Dialog dialog = new Dialog();
             Div dialogContainer = new Div();
@@ -139,6 +169,11 @@ public class DOMBuilder {
         }
     }
 
+    /**
+     * Populate container with money counter to have basic UI for this area.
+     *
+     * @return MoneyContainer
+     */
     public MoneyContainer populateMoneyContainer() {
         Label current = new Label();
         current.addClassName("money-label-div");
@@ -152,6 +187,12 @@ public class DOMBuilder {
         return new MoneyContainer(current, profit, income, expense);
     }
 
+    /**
+     * Populate money counter container with values
+     *
+     * @param moneyContainer UI container
+     * @return populated Div
+     */
     public Div populateCounterContainer(MoneyContainer moneyContainer) {
         Div container = new Div();
         container.addClassName("money-container");

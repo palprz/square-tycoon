@@ -22,6 +22,13 @@ public class FieldLogic {
     @Inject
     private BoardGenerator boardGenerator;
 
+    /**
+     * Set chosen by end-user production to the field. It will include updating field metadata, CSS and money
+     * calculations.
+     *
+     * @param field      Updated field
+     * @param production Chosen production
+     */
     public void provideProductionToField(Field field, ProductionEnum production) {
         Div title = (Div) field.getElement().getChildren().findFirst().get();
         if (production == ProductionEnum.NONE) {
@@ -53,6 +60,15 @@ public class FieldLogic {
         NotificationInfo.show("Set production of " + production.getName());
     }
 
+    /**
+     * Check if provided field has got any connection to the next (in cross) fields. Field require products and is able
+     * to provide products, so it can connect with other fields + market can connect with any other field which is
+     * providing income.
+     *
+     * @param field         Updated field
+     * @param fieldsAround  Fields around (in cross) next to the updated field
+     * @param oldProduction Old production of the field
+     */
     private void checkFieldConnections(Field field, Map<DirectionEnum, Field> fieldsAround, ProductionEnum oldProduction) {
         ProductionEnum newProduction = field.getFieldMetadata().getProduction();
         for (Map.Entry<DirectionEnum, Field> entry : fieldsAround.entrySet()) {
@@ -111,6 +127,15 @@ public class FieldLogic {
         }
     }
 
+    /**
+     * Initialize check for require products for the provided fields and for the fields around which haven't been check
+     * already.
+     *
+     * @param field                Currently checking field
+     * @param fieldsAround         Fields next (in cross) to the checking field
+     * @param alreadyCheckedFields List with already checked fields
+     * @param oldProduction        Old production of the updated at the beginning field
+     */
     private void runChainForCheckRequireProducts(Field field, Map<DirectionEnum, Field> fieldsAround,
                                                  List<Field> alreadyCheckedFields, ProductionEnum oldProduction) {
         LOG.debug("Add to the check list with fields: {}", field);
@@ -146,6 +171,14 @@ public class FieldLogic {
         LOG.debug("Done checking fields around for: {}", field);
     }
 
+    /**
+     * Check list with require products for provided field and update fieldmetadata if all require products are provided
+     * by the fields next to the provided field.
+     *
+     * @param field         Provided field to be check
+     * @param fieldsAround  Fields around (in cross) next to the provided field
+     * @param oldProduction Old production of provided field
+     */
     private void checkRequireProducts(Field field, Map<DirectionEnum, Field> fieldsAround, ProductionEnum oldProduction) {
         LOG.debug("Check require products for field: {}", field);
         FieldMetadata fieldMeta = field.getFieldMetadata();

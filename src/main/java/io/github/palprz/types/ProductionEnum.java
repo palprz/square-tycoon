@@ -73,9 +73,21 @@ public enum ProductionEnum {
             Arrays.asList());
 
     private String displayName;
+    /**
+     * Cost of running production which will reduce currently available money.
+     */
     private int cost;
+    /**
+     * Income of running (and connected to the market) production which will increase currently available money.
+     */
     private int income;
+    /**
+     * Require products to start running itself production.
+     */
     private List<ProductEnum> requireProducts;
+    /**
+     * Products which this production is able to provide after it will have all require products.
+     */
     private List<ProductEnum> provideProducts;
 
     ProductionEnum(String displayName, int cost, int income, List<ProductEnum> requireProducts, List<ProductEnum> provideProducts) {

@@ -5,6 +5,11 @@ import com.vaadin.flow.component.notification.Notification;
 
 public class NotificationInfo {
 
+    /**
+     * Display info notification for 3 seconds.
+     *
+     * @param text Text to be display on the notification
+     */
     public static void show(String text) {
         Div content = new Div();
         content.setText(text);
