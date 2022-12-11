@@ -1,4 +1,4 @@
-# Square Tycoon [May 2020]
+# Square Tycoon
 
 Web strategy game build with using Vaadin framework.
 
